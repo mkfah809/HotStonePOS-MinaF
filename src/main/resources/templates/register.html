@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http//thymeleaf.org">
+<head>
+<link rel="stylesheet" href="/css/register.css">
+<script src="https://kit.fontawesome.com/f09b2e2e32.js"
+	crossorigin="anonymous"></script>
+</head>
+<body>
+
+	<form th:action="@{/register/new/employee}" method="post">
+		<div class="container">
+			<h1>Register</h1>
+			<p>Please fill in this form to create an account.</p>
+			<hr>
+			<div>
+
+				<label><b>Username</b></label> <input type="text"
+					placeholder="Enter Username" id="username"
+					th:field="${employee.empUsername}" required>
+			</div>
+			<div>
+				<label><b>Title</b></label> <select id="title"
+					th:field="${employee.empTitle}" required>
+					<option th:value="none" selected>-- Select Role --</option>
+					<option th:value="C">Cashier</option>
+					<option th:value="D">Driver</option>
+					<option th:value="M">Manager</option>
+					<option th:value="PM">Pizza Maker</option>
+				</select>
+			</div>
+
+			<div>
+
+
+				<div>
+					<label><b>password</b></label> <input type="password" id="password"
+						th:field="${employee.empPassword}" /> <i id="passwordEyeIcon"
+						class="fa-solid fa-eye"></i>
+				</div>
+				<div>
+					<label><b>Confirm Password</b></label> <input type="password"
+						required id="confirmPassword" /> <i id="confirmPasswordEyeIcon"
+						class="fa-solid fa-eye"></i>
+				</div>
+
+				<hr>
+
+				<b><input type="submit" class="registerbtn" value="Register"
+					id="submitBtn" /></b>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript" src="/js/register.js"></script>
+</body>
+</html>
