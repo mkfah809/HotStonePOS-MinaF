@@ -32,8 +32,8 @@ public class Employee {
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
 	}
-
-	@Id
+	
+	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getEmpId() {
 		return empId;
