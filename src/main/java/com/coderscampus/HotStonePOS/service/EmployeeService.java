@@ -12,7 +12,7 @@ public class EmployeeService {
 	@Autowired
 	EmployeeRepository empRepo;
 
-	public Employee createEmp(@AuthenticationPrincipal Employee emp) {
+	public Employee createEmp(Employee emp) {
 		return empRepo.save(emp);
 	}
 }

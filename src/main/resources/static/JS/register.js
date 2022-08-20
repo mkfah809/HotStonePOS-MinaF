@@ -1,38 +1,41 @@
 var form = document.getElementById('form');
+var submitBtn = document.querySelector('#submitBtn')
 var username = document.getElementById('username');
 var title = document.getElementById('title');
 var password = document.getElementById('password');
 var confirmPassword = document.getElementById('confirmPassword');
-var submitBtn = document.querySelector('#submitBtn')
 var eyeIcons = document.querySelectorAll('.fa-eye')
 var employee
 var employeeInputs
-
-
 async function createEmployee() {
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
-		employeeInputs = checkInputs();
-		alert(employeeInputs)
+		employeeInputs = checkInputs()
 
-		employee = {
-			empUsername: username.value,
-			empPassword: password.value,
-			empTitle: title.value
-		}
-		
-		if(employeeInputs === true) {
-			fetch('/register/new/employee', {
-				method: 'POST',
+
+		if (employeeInputs === true) {
+			alert('the inputs are ok, NOW insert ')
+			employee = {
+				empUsername: username.value,
+				empTitle: title.value,
+				empPassword: password.value
+			}
+
+			fetch('http://localhost:8080/register/new/employee', {
+				method: 'post',
 				headers: {
+					'charset': 'UTF-8',
 					'Content-Type': 'application/json'
 				},
 				body: JSON.stringify(employee)
 			}).then((response) => response.json())
 		} else {
-			alert('error in fetching')
+			alert('Check Inputs')
 		}
-		
+
+
+
+
 	})
 }
 
@@ -63,7 +66,7 @@ async function passwordShowUp() {
 	})
 }
 
- function checkInputs() {
+function checkInputs() {
 	var usernameValue = username.value.trim();
 	var titleValue = title.value.trim();
 	var passwordValue = password.value.trim();
@@ -89,8 +92,7 @@ async function passwordShowUp() {
 		setErrorFor(password, 'password cannot be blank')
 		return false
 	} else if (!isPassword(passwordValue)) {
-		const passNum = isPassword()
-		alert(passNum)
+
 		setErrorFor(password, 'Please insert only numbers')
 		return false
 	} else {
@@ -114,7 +116,7 @@ async function passwordShowUp() {
 
 }
 
-function setErrorFor(input, message) {
+async function setErrorFor(input, message) {
 	const formControl = input.parentElement; //.form-control
 	const small = formControl.querySelector('small')
 
@@ -123,7 +125,7 @@ function setErrorFor(input, message) {
 	formControl.className = 'form-control error'
 }
 
-function setSuccessFor(input) {
+async function setSuccessFor(input) {
 	const formControl = input.parentElement; //.form-control
 	formControl.className = 'form-control success'
 
@@ -137,5 +139,4 @@ function isPassword(password) {
 
 passwordShowUp()
 createEmployee()
-
 
