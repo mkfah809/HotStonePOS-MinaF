@@ -91,7 +91,7 @@ body {
 	position: absolute;
 	top: 40px;
 	right: 10px;
-	visibility: hidden;
+	visibility: hidden	;
 }
 
 .form-control.success i.fa-check-cirlce {
@@ -104,14 +104,7 @@ body {
 	visibility: visible;
 }
 
-#passwordEyeIcon {
-	position: absolute;
-	top: 38px;
-	right: 45px;
-	visibility: visible;
-}
-
-#confirmPasswordEyeIcon {
+#passwordEyeIcon, #confirmPasswordEyeIcon {
 	position: absolute;
 	top: 38px;
 	right: 45px;

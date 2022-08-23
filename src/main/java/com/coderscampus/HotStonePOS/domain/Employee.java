@@ -16,7 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity(name = "employees")
-public class Employee {
+public class Employee{
 	private Long empId;
 	private String empTitle;
 	private String empUsername;
