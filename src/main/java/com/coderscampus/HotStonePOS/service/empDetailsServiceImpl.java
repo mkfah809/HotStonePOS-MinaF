@@ -15,15 +15,20 @@ public class empDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	EmployeeRepository empRepo;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String empUsername) throws UsernameNotFoundException {
-		Employee findByUserName = empRepo.findByEmpUsername(empUsername);
-		if(findByUserName == null) {
+		Employee emp = empRepo.findByEmpUsername(empUsername);
+
+		if (emp == null) {
+			System.out.println("Emp is null");
 			throw new UsernameNotFoundException("Username and or Password was incorrect");
 		}
+		System.out.println(emp.getEmpUsername());
+		System.out.println(emp.getEmpPassword());
+		System.out.println(emp.getAuthorities());
 		// map emp => empDetail
-		return new CustomSecurityEmp(findByUserName);
+		return new CustomSecurityEmp(emp);
 	}
-	
+
 }

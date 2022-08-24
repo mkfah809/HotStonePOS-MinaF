@@ -22,14 +22,14 @@ public class Employee{
 	private String empUsername;
 	private String empPassword;
 	private List<Order> orders;
-	private Set<Authority> authorities = new HashSet<>();
+	private Set<Authorities> authorities = new HashSet<>();
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
-	public Set<Authority> getAuthorities() {
+	public Set<Authorities> getAuthorities() {
 		return authorities;
 	}
 
-	public void setAuthorities(Set<Authority> authorities) {
+	public void setAuthorities(Set<Authorities> authorities) {
 		this.authorities = authorities;
 	}
 	

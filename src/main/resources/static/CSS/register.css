@@ -91,7 +91,7 @@ body {
 	position: absolute;
 	top: 40px;
 	right: 10px;
-	visibility: hidden	;
+	visibility: visible	;
 }
 
 .form-control.success i.fa-check-cirlce {

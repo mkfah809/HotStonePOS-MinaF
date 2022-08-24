@@ -10,11 +10,39 @@ import javax.persistence.ManyToOne;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity(name = "authorities")
-public class Authority implements GrantedAuthority {
+public class Authorities implements GrantedAuthority {
 
 	private static final long serialVersionUID = 1L;
 	private Long authId;
 	private String authority;
+	private Employee emp;
+
+	@ManyToOne
+	public Employee getEmp() {
+		return emp;
+	}
+
+	public void setEmp(Employee emp) {
+		this.emp = emp;
+	}
+
+	public Long getAuthId() {
+		return authId;
+	}
+
+	public void setAuthId(Long authId) {
+		this.authId = authId;
+	}
+
+	public void setAuthority(String authority) {
+		this.authority = authority;
+	}
+
+	@Override
+	public String getAuthority() {
+		return authority;
+	}
+
 	private Employee employee;
 
 	@Id
@@ -27,13 +55,6 @@ public class Authority implements GrantedAuthority {
 		this.authId = id;
 	}
 
-	public String getAuthority() {
-		return authority;
-	}
-
-	public void setAuthority(String authority) {
-		this.authority = authority;
-	}
 	@ManyToOne()
 	public Employee getEmployee() {
 		return employee;
