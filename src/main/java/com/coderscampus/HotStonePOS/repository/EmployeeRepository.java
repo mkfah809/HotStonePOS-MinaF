@@ -9,15 +9,9 @@ import com.coderscampus.HotStonePOS.domain.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-//	select e from Employee e left join authorities on a.employee_emp_id = e.emp_id;
-//	@Query("select e"
-//			+ " from Employee, Authority a"
-//			+ " where ")
-//	@Query("select e from Employe e"
-//			+ " left join fetch authority"
-//			+ " where u.empUsername = :username")
-	@Query("select e from Employee e"
-			+ " left join fetch e.authorities "
+
+	@Query("select e from Employee e "
+			+ " left join  fetch e.authorities "
 			+ "where e.empUsername = :username") 
 	Employee findByEmpUsername(@Param(value = "username") String username);
 }

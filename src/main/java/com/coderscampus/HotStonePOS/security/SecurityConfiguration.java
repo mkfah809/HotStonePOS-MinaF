@@ -16,7 +16,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	PasswordEncoder passwordEncoder;
 	
 	@Bean
-	public PasswordEncoder getPasswordEncoder() {
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
@@ -26,9 +26,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
+//		auth
+//  			.userDetailsService(userDetailsService)
+//			.passwordEncoder(passwordEncoder);
+		
 		auth
-			.userDetailsService(userDetailsService)
-			.passwordEncoder(passwordEncoder);
+		.inMemoryAuthentication()
+		.passwordEncoder(passwordEncoder)
+		.withUser("mfahmy")
+		.password("$2a$10$REHIn.mDCpU1.hNHdyPY2eTE2AWphoYZkQ2aoS35UIj.jGpvs9B.i") //password123
+		.roles("USER", "ADMIN");
 	}
 	
 	

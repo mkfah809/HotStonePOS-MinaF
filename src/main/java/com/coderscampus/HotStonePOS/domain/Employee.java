@@ -14,57 +14,59 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity(name = "employees")
+@Entity
+@Table(name = "employees")
 public class Employee{
-	private Long empId;
-	private String empTitle;
-	private String empUsername;
-	private String empPassword;
+	private Long id;
+	private String title;
+	private String username;
+	private String password;
 	private List<Order> orders;
-	private Set<Authorities> authorities = new HashSet<>();
+	private Set<Authority> authorities = new HashSet<>();
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "employee")
-	public Set<Authorities> getAuthorities() {
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
+	public Set<Authority> getAuthorities() {
 		return authorities;
 	}
 
-	public void setAuthorities(Set<Authorities> authorities) {
+	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
 	}
 	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getEmpId() {
-		return empId;
+		return id;
 	}
 
 	public void setEmpId(Long empId) {
-		this.empId = empId;
+		this.id = empId;
 	}
 
 	public String getEmpTitle() {
-		return empTitle;
+		return title;
 	}
 
 	public void setEmpTitle(String empTitle) {
-		this.empTitle = empTitle;
+		this.title = empTitle;
 	}
 
 	public String getEmpUsername() {
-		return empUsername;
+		return username;
 	}
 
 	public void setEmpUsername(String empUsername) {
-		this.empUsername = empUsername;
+		this.username = empUsername;
 	}
 
 	public String getEmpPassword() {
-		return empPassword;
+		return password;
 	}
 
 	public void setEmpPassword(String empPassword) {
-		this.empPassword = empPassword;
+		this.password = empPassword;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })

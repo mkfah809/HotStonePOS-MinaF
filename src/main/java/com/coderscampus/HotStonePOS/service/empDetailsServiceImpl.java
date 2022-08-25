@@ -21,12 +21,10 @@ public class empDetailsServiceImpl implements UserDetailsService {
 		Employee emp = empRepo.findByEmpUsername(empUsername);
 
 		if (emp == null) {
-			System.out.println("Emp is null");
+			System.out.println("username / password are null");
 			throw new UsernameNotFoundException("Username and or Password was incorrect");
 		}
-		System.out.println(emp.getEmpUsername());
-		System.out.println(emp.getEmpPassword());
-		System.out.println(emp.getAuthorities());
+	
 		// map emp => empDetail
 		return new CustomSecurityEmp(emp);
 	}
