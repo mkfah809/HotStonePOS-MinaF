@@ -5,10 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="/css/register.css">
+<!-- Load an icon library -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 </head>
 <body>
-	<h2>Dashboard - Main PAGE</h2>
-
+	<div class="navbar">
+		<a class="active" href="#"><i class="fa fa-fw fa-home"></i> Home</a> 
+		<a href="#"><i class="fa fa-fw fa-search"></i> Search</a> 
+			<a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a> 
+			<a href="@{/login}">
+			
+			
+			<i class="fa fa-fw fa-user"></i> Login</a>
+	</div>
+	<p>Hi there [[${emp.username}]]</p>
+	<form action="/logout" method="POST">
+		<input type="hidden" th:name="${_csrf.parameterName}"
+			th:value="${_csrf.token}" />
+		<button type="submit">Logout</button>
+	</form>
 </body>
 </html>

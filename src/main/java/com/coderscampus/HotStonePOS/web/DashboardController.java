@@ -16,6 +16,13 @@ public class DashboardController {
 	
 	@GetMapping("/dashboard")
 	public String getDashboard(@AuthenticationPrincipal Employee emp, ModelMap model) {
+		System.out.println("dashboard page");
+		model.put("emp",emp);
+		try {
+			System.out.println(emp.getUsername());
+		} catch(Exception e) {
+			
+		}
 		return "dashboard";
 		
 	}

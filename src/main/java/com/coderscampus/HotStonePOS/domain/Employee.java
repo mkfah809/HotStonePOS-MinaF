@@ -18,7 +18,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "employees")
-public class Employee{
+public class Employee {
+
 	private Long id;
 	private String title;
 	private String username;
@@ -26,47 +27,38 @@ public class Employee{
 	private List<Order> orders;
 	private Set<Authority> authorities = new HashSet<>();
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
-	public Set<Authority> getAuthorities() {
-		return authorities;
-	}
-
-	public void setAuthorities(Set<Authority> authorities) {
-		this.authorities = authorities;
-	}
-	
-	@Id	
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long getEmpId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setEmpId(Long empId) {
-		this.id = empId;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getEmpTitle() {
+	public String getTitle() {
 		return title;
 	}
 
-	public void setEmpTitle(String empTitle) {
-		this.title = empTitle;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getEmpUsername() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setEmpUsername(String empUsername) {
-		this.username = empUsername;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getEmpPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setEmpPassword(String empPassword) {
-		this.password = empPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
@@ -77,6 +69,15 @@ public class Employee{
 
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "emp")
+	public Set<Authority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<Authority> authorities) {
+		this.authorities = authorities;
 	}
 
 }

@@ -14,23 +14,14 @@ public class CustomSecurityEmp extends Employee implements UserDetails {
 	
 	public CustomSecurityEmp(Employee emp) {
 		this.setAuthorities(emp.getAuthorities());
-		this.setEmpId(emp.getEmpId());
-		this.setEmpPassword(emp.getEmpPassword());
-		this.setEmpUsername(emp.getEmpUsername());
-		System.out.println(emp.getEmpUsername()+" XXX "+emp.getEmpPassword());
+		this.setId(emp.getId());
+		this.setPassword(emp.getPassword());
+		this.setUsername(emp.getUsername());
+		this.setTitle(emp.getTitle());
 	}
 	
-	@Override
-	public String getPassword() {
 
-		return null;
-	}
 
-	@Override
-	public String getUsername() {
-
-		return null;
-	}
 
 	@Override
 	public boolean isAccountNonExpired() {
@@ -55,5 +46,6 @@ public class CustomSecurityEmp extends Employee implements UserDetails {
 
 		return true;
 	}
+
 
 }
