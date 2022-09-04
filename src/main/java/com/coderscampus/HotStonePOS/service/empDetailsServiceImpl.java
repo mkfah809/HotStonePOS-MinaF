@@ -20,7 +20,7 @@ public class empDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String empUsername) throws UsernameNotFoundException {
-		Employee emp = empRepo.findByEmpUsername(empUsername);
+		Employee emp = empRepo.findByUsername(empUsername);
 		
 		if (emp == null) 
 			throw new UsernameNotFoundException("Username and or Password was incorrect ");

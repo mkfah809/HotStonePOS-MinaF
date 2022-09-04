@@ -8,12 +8,9 @@ var eyeIcons = document.querySelectorAll('.fa-eye')
 var employee
 var employeeInputs
 async function createEmployee() {
-	form.addEventListener('submit', (e) => {
+	submitBtn.addEventListener('submit', (e) => {
 		e.preventDefault();
-		employeeInputs = checkInputs()
-
-
-		if (employeeInputs === true) {
+		if (checkInputs()) {
 			alert('the inputs are ok, NOW insert ')
 			employee = {
 				empUsername: username.value,
@@ -21,17 +18,15 @@ async function createEmployee() {
 				empPassword: password.value
 			}
 
-			fetch('http://localhost:8080/register/new/employee', {
-				method: 'post',
-				headers: {
-					'charset': 'UTF-8',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(employee)
-			}).then((response) => response.json())
+			fireRequest()
+
+
+
 		} else {
 			alert('Check Inputs')
 		}
+
+
 
 
 
@@ -135,7 +130,51 @@ function isPassword(password) {
 	return new RegExp('[0-9]').test(password);
 }
 
+async function fireRequest() {
 
+//	fetch('/register/new/employee', {
+//		method: 'POST',
+//		headers: {
+//			'Content-Type': 'x-www-form-urlencoded',
+//		},
+//		body: JSON.stringify(employee)
+//	}).then((response) => response.json())
+
+	//	var request = new XMLHttpRequest();
+	//	request.submit = function() {
+	//		if (request.readyState == XMLHttpRequest.DONE) {
+	//			location.reload();
+	//		}
+	//	}
+	//
+	//	// Headers for CSRF protection
+	//	var token = $("meta[name='_csrf']").attr("content");
+	//	var header = $("meta[name='_csrf_header']").attr("content");
+	//
+	//	request.open("POST", "/register/new/employee");
+	//	request.setRequestHeader(header, token);  // < --This line throws syntax error.
+	//	request.send(employee);
+	//	request.contentType('application/json')
+
+		(function testing() {
+			var token = $("meta[name='_csrf']").attr("content")
+			console.log(token)
+			var header = $("meta[name='_csrf_header']").attr("content")
+			console.log(header)
+			$(document).ajaxSend(function(e, xhr, options) {
+				xhr.setRequestHeader(header, token)
+			})
+		})
+		$.ajax({
+			contentType: 'application/x-www-form-urlencoded',
+			data: JSON.stringify(employee),
+			dataType: 'json',
+			cache: false,
+			type: 'POST',
+			url: 'http://localhost:8080/register/new/employee'
+		})
+
+}
 
 passwordShowUp()
 createEmployee()
