@@ -1,15 +1,13 @@
 var form = document.getElementById('form');
-var submitBtn = document.querySelector('#submitBtn')
 var username = document.getElementById('username');
 var title = document.getElementById('title');
 var password = document.getElementById('password');
 var confirmPassword = document.getElementById('confirmPassword');
 var eyeIcons = document.querySelectorAll('.fa-eye')
-const url = "/register/new/employee"
-var token = document.getElementById('csrf');
 
 
-function createEmployee() {
+
+async function createEmployee() {
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
 		if (checkInputs()) {
@@ -19,6 +17,8 @@ function createEmployee() {
 		} else {
 			alert('Check Inputs')
 		}
+		
+		
 
 	})
 }
@@ -117,20 +117,20 @@ function isPassword(password) {
 }
 
 function fireRequest() {
-	emp = {
-		empUsername: username.value,
-		empTitle: title.value,
-		empPassword: password.value
+	let emp = {
+		username: username.value,
+		title: title.value,
+		password: password.value
 	}
-	console.log('xx', emp.empUsername)
-	fetch(url, {
+	fetch("/register/new/employee", {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-CSRF-TOKEN': token.value
+			'X-CSRF-TOKEN': document.getElementById('csrf').value
 		},
 		body: JSON.stringify(emp)
-	}).then((response) => response.json())
+	})
+		.then((response) => response.json())
 
 }
 

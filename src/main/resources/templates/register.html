@@ -13,8 +13,8 @@
 		<div class="header">
 			<h2>Create An Employee Account</h2>
 		</div>
-		<form class="form" id="form" action="" method="POST">
-			<input type="text" id="csrf" th:name="${_csrf.parameterName}"
+		<form class="form" id="form" action="/dashboard" method="POST">
+			<input type=hidden id="csrf" th:name="${_csrf.parameterName}"
 				th:value="${_csrf.token}" />
 
 

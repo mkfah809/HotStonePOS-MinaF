@@ -12,16 +12,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.coderscampus.HotStonePOS.domain.Employee;
 import com.coderscampus.HotStonePOS.service.AdminService;
 
-
 @Controller
 public class AdminController {
 
 	@Autowired
 	AdminService adminService;
 
-	
 	@GetMapping("/register/new/employee")
-	public String getCreateEmployee(ModelMap model,@AuthenticationPrincipal Employee emp) {
+	public String getCreateEmployee(ModelMap model, @AuthenticationPrincipal Employee emp) {
 		System.out.println("XXX" + emp.getId());
 		Employee findById = adminService.findById(emp.getId());
 		model.put("employee", new Employee());
@@ -29,12 +27,10 @@ public class AdminController {
 	}
 
 	@PostMapping("/register/new/employee")
-	public String postCreateEmployee(@RequestBody Employee emp) {
-		System.out.println(emp.getTitle());
-		System.out.println(emp.getUsername());
-		
+	@ResponseBody
+	public String postCreateEmployee(@RequestBody(required = true) Employee emp) {
 		adminService.createNewEmployee(emp);
-		return "redirect:/register";
+		return "redirect:/  dashboard";
 	}
 
 }
