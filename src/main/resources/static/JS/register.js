@@ -5,31 +5,20 @@ var title = document.getElementById('title');
 var password = document.getElementById('password');
 var confirmPassword = document.getElementById('confirmPassword');
 var eyeIcons = document.querySelectorAll('.fa-eye')
-var employee
-var employeeInputs
-async function createEmployee() {
+const url = "/register/new/employee"
+
+
+
+function createEmployee() {
 	submitBtn.addEventListener('submit', (e) => {
 		e.preventDefault();
 		if (checkInputs()) {
-			alert('the inputs are ok, NOW insert ')
-			employee = {
-				empUsername: username.value,
-				empTitle: title.value,
-				empPassword: password.value
-			}
-
+			alert('Submitting ...')
 			fireRequest()
-
-
 
 		} else {
 			alert('Check Inputs')
 		}
-
-
-
-
-
 
 	})
 }
@@ -114,68 +103,36 @@ function checkInputs() {
 async function setErrorFor(input, message) {
 	const formControl = input.parentElement; //.form-control
 	const small = formControl.querySelector('small')
-
 	small.innerText = message;
-
 	formControl.className = 'form-control error'
 }
 
 async function setSuccessFor(input) {
 	const formControl = input.parentElement; //.form-control
 	formControl.className = 'form-control success'
-
 }
 
 function isPassword(password) {
 	return new RegExp('[0-9]').test(password);
 }
 
-async function fireRequest() {
+function fireRequest() {
+	emp = {
+		empUsername: username.value,
+		empTitle: title.value,
+		empPassword: password.value
+	}
 
-//	fetch('/register/new/employee', {
-//		method: 'POST',
-//		headers: {
-//			'Content-Type': 'x-www-form-urlencoded',
-//		},
-//		body: JSON.stringify(employee)
-//	}).then((response) => response.json())
-
-	//	var request = new XMLHttpRequest();
-	//	request.submit = function() {
-	//		if (request.readyState == XMLHttpRequest.DONE) {
-	//			location.reload();
-	//		}
-	//	}
-	//
-	//	// Headers for CSRF protection
-	//	var token = $("meta[name='_csrf']").attr("content");
-	//	var header = $("meta[name='_csrf_header']").attr("content");
-	//
-	//	request.open("POST", "/register/new/employee");
-	//	request.setRequestHeader(header, token);  // < --This line throws syntax error.
-	//	request.send(employee);
-	//	request.contentType('application/json')
-
-		(function testing() {
-			var token = $("meta[name='_csrf']").attr("content")
-			console.log(token)
-			var header = $("meta[name='_csrf_header']").attr("content")
-			console.log(header)
-			$(document).ajaxSend(function(e, xhr, options) {
-				xhr.setRequestHeader(header, token)
-			})
-		})
-		$.ajax({
-			contentType: 'application/x-www-form-urlencoded',
-			data: JSON.stringify(employee),
-			dataType: 'json',
-			cache: false,
-			type: 'POST',
-			url: 'http://localhost:8080/register/new/employee'
-		})
+	fetch(url, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'X-CSRF-TOKEN': token
+		},
+		body: JSON.stringify(emp)
+	}).then((response) => response.json())
 
 }
 
 passwordShowUp()
 createEmployee()
-

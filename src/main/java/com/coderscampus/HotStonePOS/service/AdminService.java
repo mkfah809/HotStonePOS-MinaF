@@ -14,7 +14,7 @@ public class AdminService {
 	@Autowired
 	private EmployeeRepository empRepo;
 
-	@Secured({ "ROLE_ADMIN" })
+	@Secured({"ROLE_ADMIN" })
 	public Employee createNewEmployee(Employee emp) {
 		return empRepo.save(emp);
 	}
