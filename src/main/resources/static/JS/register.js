@@ -6,11 +6,11 @@ var password = document.getElementById('password');
 var confirmPassword = document.getElementById('confirmPassword');
 var eyeIcons = document.querySelectorAll('.fa-eye')
 const url = "/register/new/employee"
-
+var token = document.getElementById('csrf');
 
 
 function createEmployee() {
-	submitBtn.addEventListener('submit', (e) => {
+	form.addEventListener('submit', (e) => {
 		e.preventDefault();
 		if (checkInputs()) {
 			alert('Submitting ...')
@@ -122,12 +122,12 @@ function fireRequest() {
 		empTitle: title.value,
 		empPassword: password.value
 	}
-
+	console.log('xx', emp.empUsername)
 	fetch(url, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-CSRF-TOKEN': token
+			'X-CSRF-TOKEN': token.value
 		},
 		body: JSON.stringify(emp)
 	}).then((response) => response.json())

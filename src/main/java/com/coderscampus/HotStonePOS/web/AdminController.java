@@ -30,6 +30,8 @@ public class AdminController {
 
 	@PostMapping("/register/new/employee")
 	public String postCreateEmployee(@RequestBody Employee emp) {
+		System.out.println(emp.getTitle());
+		System.out.println(emp.getUsername());
 		
 		adminService.createNewEmployee(emp);
 		return "redirect:/register";
