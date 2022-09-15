@@ -40,17 +40,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		
 				http
-//				.csrf().disable() // cross side request forgery
 				.authorizeRequests()
 				.antMatchers("/admin/**").hasAnyRole("ADMIN")
-				.anyRequest().hasAnyRole("USER").and()
+				.and()
 				.formLogin()
 				.loginPage("/login")
-				.defaultSuccessUrl("/dashboard")
+				.defaultSuccessUrl("/dashboard/{empId}")
 				.permitAll();
 		}
 
 
-
+//	.anyRequest().hasAnyRole("USER")
 
 }

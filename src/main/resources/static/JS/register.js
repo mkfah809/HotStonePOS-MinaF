@@ -13,7 +13,7 @@ async function createEmployee() {
 		if (checkInputs()) {
 			alert('Submitting ...')
 			fireRequest()
-
+			location.reload();
 		} else {
 			alert('Check Inputs')
 		}
@@ -59,7 +59,7 @@ function checkInputs() {
 	if (usernameValue === '') {
 
 		setErrorFor(username, 'Username cannot be blank')
-
+		username.focus()
 		return false
 	} else {
 
@@ -67,6 +67,8 @@ function checkInputs() {
 	}
 	if (titleValue === 'none') {
 		setErrorFor(title, 'title cannot be blank')
+		title.focus()
+		
 		return false
 	} else {
 		setSuccessFor(title)
@@ -74,10 +76,12 @@ function checkInputs() {
 
 	if (passwordValue === '') {
 		setErrorFor(password, 'password cannot be blank')
+		password.focus()
 		return false
 	} else if (!isPassword(passwordValue)) {
 
 		setErrorFor(password, 'Please insert only numbers')
+		password.focus()
 		return false
 	} else {
 		setSuccessFor(password)
@@ -136,3 +140,4 @@ function fireRequest() {
 
 passwordShowUp()
 createEmployee()
+windows.location.reload()

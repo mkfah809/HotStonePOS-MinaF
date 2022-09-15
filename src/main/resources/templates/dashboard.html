@@ -4,24 +4,29 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="stylesheet" href="/css/register.css">
-<!-- Load an icon library -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="/css/register.css"> -->
+
+<!-- <link rel="stylesheet" -->
+<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
 </head>
 <body>
-	<ul>
-		<li>
-			<form action="/logout" method="POST">
-				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-				<button type="submit">Logout</button>
-			</form>
-		</li>
-		<li><a th:href="@{/register/new/employee}">Register</a></li>
-		<li><a href="#contact">Contact</a></li>
-		<li><a href="#about">Server: [[${employee.username}]]</a></li>
-	</ul>
+	<div>
+
+		<form action="/logout" method="POST">
+			<input type="hidden" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" />
+			<button type="submit">Logout</button>
+		</form>
+	</div>
+	
+	<div>
+		<a th:if="${access.authority} == 'ROLE_ADMIN'" th:href="@{/register/new/employee}">Register</a>
+	</div>
+
+	<div>
+		<a href="@{about-me/{empId}">Server: [[${employee.username}]]</a>
+	</div>
 
 </body>
 </html>
