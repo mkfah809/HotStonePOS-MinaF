@@ -43,5 +43,7 @@ public class AdminService {
 		auth.setEmp(emp);
 		return authRepo.save(auth);
 	}
+	
+	
 
 }
