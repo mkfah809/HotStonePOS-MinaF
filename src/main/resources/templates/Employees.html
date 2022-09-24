@@ -20,28 +20,35 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-	<div>
+	<h1>Employees</h1>
 
-		<form action="/logout" method="POST">
-			<input type="hidden" th:name="${_csrf.parameterName}"
-				th:value="${_csrf.token}" />
-			<button type="submit">Logout</button>
-		</form>
-	</div>
 
-	<div th:if="${access.authority} == 'ROLE_ADMIN'">
-		<div>
-			<a th:href="@{/register/new/employee}">Register</a>
-		</div>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>username</th>
+			<th>Title</th>
+		</tr>
 
-		<div>
-			<a th:href="@{/dashboard/about-me/{empId}(empId=${employee.id})}">Update</a>
-		</div>
-		<div>
-			<a
-				th:href="@{/dashoard/employees/{empId}(empId=${employee.id})}">List
-				Employees</a>
-		</div>
-	</div>
+
+		<tr th:each="employee : ${employees}">
+			<td><a href="">[[${employee.id}]]</a></td>
+			<td><input type="text" th:value="${employee.username}"
+				class="form-control"></td>
+			<td><select>
+					<option>[[${employee.title}]]</option>
+			</select></td>
+			<td>
+				<form th:action="@{/dashoard/employees/{empId}/delete(empId=${employee.id})}" method="post">
+					<button type="button" class="btn btn-outline-primary btn-sm">Update</button>
+				</form>
+			</td>
+
+		</tr>
+
+	</table>
+
+
+
 </body>
 </html>

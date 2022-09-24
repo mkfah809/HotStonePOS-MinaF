@@ -12,9 +12,7 @@ public class EmployeeService {
 	@Autowired
 	AdminService adminService;
 
-	@GetMapping("/about-me")
-	public String postCreateEmployee(@AuthenticationPrincipal Employee emp) {
-		Employee findById = adminService.findById(emp.getId());	
-		return "about";
-	}
+	
+	
+	
 }
