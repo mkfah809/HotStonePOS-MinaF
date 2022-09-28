@@ -41,11 +41,13 @@ public class AdminController {
 	}
 
 	@GetMapping("/dashboard/about-me/{empId}")
-	public String getExistingEmployee(@AuthenticationPrincipal Employee emp, ModelMap model, @PathVariable Long empId)
-			throws Exception {
+	public String getExistingEmployee(ModelMap model, @PathVariable Long empId) throws Exception {
 		try {
 			if (empId != null) {
-				model.put("employee", adminService.findById(empId));			
+				Employee employee = adminService.findById(empId);
+				model.put("employee", employee);
+				Authority next = employee.getAuthorities().iterator().next();
+				model.put("authority", next.getAuthority());
 			} else {
 				model.put("error", new Exception("Sorry, id is empty"));
 			}
@@ -56,25 +58,25 @@ public class AdminController {
 	}
 
 	@PostMapping("/dashboard/about-me/{empId}")
-	public String updateExistingEmployee(Employee emp) {
+	public String updateExistingEmployee(Employee emp, Authority auth) {
+		System.out.println("Updating user# " + emp.getId());
 		adminService.createOrUpdateEmployee(emp);
+		adminService.createOrUpdateEmployee(emp);
+		authService.setAuthorityToUser(emp, auth);
 		return "redirect:/dashboard/about-me/" + emp.getId();
 	}
 
-	@GetMapping("/dashoard/employees/{empId}")
-	public String getListEmployees(ModelMap model, @PathVariable Long empId) {
-		List<Employee> employees = adminService.findAll();
-		Employee employee = adminService.findById(empId);
-//		model.put("employee", employee);
-		model.put("employees", employees);
+	@GetMapping("/dashoard/employees")
+	public String getListEmployees(ModelMap model) {
+		model.put("employees", adminService.findAll());
 		return "employees";
+
 	}
 
 	@PostMapping("/dashoard/employees/delete/{empId}")
-	public String deleteExistingEmployee(Long empId) {
-		System.out.println("Deleting A User" + empId);
-		Employee emp = adminService.findById(empId);
+	public String deleteExistingEmployee(@PathVariable Long empId) {
+		System.out.println("Deleting user# " + empId);
 		adminService.delete(empId);
-		return "redirect:/dashoard/employees/{empId}";
+		return "redirect:/dashoard/employees";
 	}
 }

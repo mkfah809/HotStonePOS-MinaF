@@ -23,27 +23,36 @@
 	<h1>Employees</h1>
 
 
-	<table>
+	<table class="table table-striped">
+
 		<tr>
 			<th>ID</th>
 			<th>username</th>
-			<th>Title</th>
+
+			<th>Delete Actions</th>
 		</tr>
 
 
 		<tr th:each="employee : ${employees}">
-			<td><a href="">[[${employee.id}]]</a></td>
-			<td><input type="text" th:value="${employee.username}"
-				class="form-control"></td>
-			<td><select>
-					<option>[[${employee.title}]]</option>
-			</select></td>
+
+			<td><a
+				th:href="@{/dashboard/about-me/{empId}(empId=${employee.id})}">[[${employee.id}]]</a></td>
+			<td><div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">@</span>
+					</div>
+					<input type="text" class="form-control" th:value="${employee.username}"
+						aria-label="Username" aria-describedby="basic-addon1">
+				</div></td>
 			<td>
-				<form th:action="@{/dashoard/employees/{empId}/delete(empId=${employee.id})}" method="post">
-					<button type="button" class="btn btn-outline-primary btn-sm">Update</button>
+
+				<form
+					th:action="@{/dashoard/employees/delete/{empId}(empId=${employee.id})}"
+					method="post">
+					<input type="hidden" th:value="${employee.id}" /> <input
+						type="submit" class="btn btn-primary" value="Delete" />
 				</form>
 			</td>
-
 		</tr>
 
 	</table>

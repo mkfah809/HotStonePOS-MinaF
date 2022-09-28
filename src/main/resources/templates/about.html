@@ -23,6 +23,7 @@
 	<h1>About</h1>
 	<form th:action="@{/dashboard/about-me/{empId}(empId=${employee.id})}"
 		method="post">
+
 		<div>
 			<input type="hidden" th:field=${employee.id} />
 		</div>
@@ -31,11 +32,12 @@
 			Username: <input type="text" th:field="${employee.username}" />
 		</div>
 		<div>
-			Password: <input type="password" th:field="${employee.password}" />
+			Password: <input type="password" th:field="${employee.password}">
 		</div>
 		<div>
 			Role: <input readonly type="text" th:field="${employee.title}" />
 		</div>
+		<div></div>
 		<div>
 			<button type="submit" class="btn btn-primary">Update</button>
 		</div>

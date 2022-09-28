@@ -16,39 +16,33 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	PasswordEncoder passwordEncoder;
 	@Autowired
 	private UserDetailsService userDetailsService;
-	
+
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	
-	   
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
-		auth
-  			.userDetailsService(userDetailsService)
-			.passwordEncoder(passwordEncoder);
-		
+
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
+
 	}
-	
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-				
-				http
-				.authorizeRequests()
-				.antMatchers("/admin/**").hasAnyRole("ADMIN")
-				.and()
-				.formLogin()
-				.loginPage("/login")
-				.defaultSuccessUrl("/dashboard")
-				.permitAll();
+		http		
+			.authorizeRequests()
+			.antMatchers("/admin/**").hasAnyAuthority("USER","ADMIN")
+			.anyRequest().authenticated()
+			.and()
+			.formLogin()
+			.loginPage("/login")
+			.defaultSuccessUrl("/dashboard")
+			.permitAll();
+		
+		
+	
 		}
-
-
-
 
 }

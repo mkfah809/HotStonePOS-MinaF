@@ -16,7 +16,7 @@ public class AuthorityService {
 	
 	public Authority setAuthorityToUser(Employee emp, Authority auth) {
 		
-		if (emp.getTitle().equalsIgnoreCase("M")) {
+		if (emp.getTitle().equalsIgnoreCase("Manager")) {
 			auth.setAuthority("ROLE_ADMIN");
 		} else {
 			auth.setAuthority("ROLE_USER");
