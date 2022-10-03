@@ -39,27 +39,30 @@
 					</form>
 				</li>
 				<li th:if="${access.authority} == 'ROLE_ADMIN'" class="nav-item"><a
-					class="btn btn-" th:href="@{/register/new/employee}">Register</a></li>
+					class="btn btn-secondary" th:href="@{/register/new/employee}">Register</a></li>
 				<li th:if="${access.authority} == 'ROLE_ADMIN'" class="nav-item"><a
 					class="btn btn-primary" th:href="@{/dashoard/employees}">List
 						Employees</a></li>
-				<li ><a class="btn btn-secondary"
+				<li><a class="btn btn-secondary"
 					th:href="@{/dashboard/about-me/{empId}(empId=${employee.id})}">Update</a></li>
-				<li class="username">Logged In: [[${employee.username}]]</li>
 			</ul>
 		</div>
 
 
 
+		<br>
 
+		<div class="card-body">
+			<h5 class="card-title">Remember Special Treatment</h5>
+			<p class="card-text">With supporting text below as a natural
+				lead-in to additional content.</p>
+			<a href="#" class="btn btn-primary">Pick Up</a> <a href="#"
+				class="btn btn-primary">Delivery</a> <a href="#"
+				class="btn btn-primary">Take away</a>
 
-		<!-- 		<div class="card-body"> -->
-		<!-- 			<h5 class="card-title">Special title treatment</h5> -->
-		<!-- 			<p class="card-text">With supporting text below as a natural -->
-		<!-- 				lead-in to additional content.</p> -->
-		<!-- 			<a href="#" class="btn btn-primary">Go somewhere</a> -->
-		<!-- 		</div> -->
+		</div>
 	</div>
+	<p id="btn-secondary">Logged In: [[${employee.username}]]</p>
 
 </body>
 </html>

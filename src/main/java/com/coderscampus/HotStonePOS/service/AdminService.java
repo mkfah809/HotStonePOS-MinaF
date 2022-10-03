@@ -31,4 +31,10 @@ public class AdminService {
 	public void delete(Long id) {
 		empRepo.deleteById(id);
 	}
+
+	public Employee findByUsername(String username) {
+		
+		return empRepo.findByUsername(username);
+
+	}
 }

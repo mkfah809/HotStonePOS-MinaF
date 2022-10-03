@@ -3,7 +3,6 @@ package com.coderscampus.HotStonePOS.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,20 +33,21 @@ public class AdminController {
 
 	@PostMapping("/register/new/employee")
 	@ResponseBody
-	public String createEmployee(@RequestBody Employee emp, Authority auth) {
-		adminService.createOrUpdateEmployee(emp);
-		authService.setAuthorityToUser(emp, auth);
-		return "redirect:/register/new/employee";
+	public Boolean createEmployee(@RequestBody Employee emp, Authority auth) throws Exception {
+		if (adminService.findByUsername(emp.getUsername()) == null) {
+			adminService.createOrUpdateEmployee(emp);
+			authService.setAuthorityToUser(emp, auth);
+			return (emp == null);
+
+		}
+		return (emp != null);
 	}
 
 	@GetMapping("/dashboard/about-me/{empId}")
 	public String getExistingEmployee(ModelMap model, @PathVariable Long empId) throws Exception {
 		try {
 			if (empId != null) {
-				Employee employee = adminService.findById(empId);
-				model.put("employee", employee);
-				Authority next = employee.getAuthorities().iterator().next();
-				model.put("authority", next.getAuthority());
+				model.put("employee", adminService.findById(empId));
 			} else {
 				model.put("error", new Exception("Sorry, id is empty"));
 			}
@@ -60,7 +60,6 @@ public class AdminController {
 	@PostMapping("/dashboard/about-me/{empId}")
 	public String updateExistingEmployee(Employee emp, Authority auth) {
 		System.out.println("Updating user# " + emp.getId());
-		adminService.createOrUpdateEmployee(emp);
 		adminService.createOrUpdateEmployee(emp);
 		authService.setAuthorityToUser(emp, auth);
 		return "redirect:/dashboard/about-me/" + emp.getId();

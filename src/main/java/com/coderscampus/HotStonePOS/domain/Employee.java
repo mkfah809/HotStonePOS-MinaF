@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -44,7 +45,7 @@ public class Employee {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
+	@Column(unique = true)
 	public String getUsername() {
 		return username;
 	}

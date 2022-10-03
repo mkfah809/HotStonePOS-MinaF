@@ -13,13 +13,7 @@ async function createEmployee() {
 		if (checkInputs()) {
 			alert('Submitting ...')
 			fireRequest()
-			location.reload();
-		} else {
-			alert('Check Inputs')
 		}
-		
-		
-
 	})
 }
 
@@ -57,18 +51,19 @@ function checkInputs() {
 	var confirmPasswordValue = confirmPassword.value.trim();
 
 	if (usernameValue === '') {
-
 		setErrorFor(username, 'Username cannot be blank')
 		username.focus()
 		return false
+	} else if (usernameValue === true) {
+		setErrorFor(username, 'username already exists')
+		return false
 	} else {
-
 		setSuccessFor(username)
 	}
 	if (titleValue === 'none') {
 		setErrorFor(title, 'title cannot be blank')
 		title.focus()
-		
+		title.select()
 		return false
 	} else {
 		setSuccessFor(title)
@@ -77,11 +72,13 @@ function checkInputs() {
 	if (passwordValue === '') {
 		setErrorFor(password, 'password cannot be blank')
 		password.focus()
+		password.select()
 		return false
 	} else if (!isPassword(passwordValue)) {
 
 		setErrorFor(password, 'Please insert only numbers')
 		password.focus()
+		password.select()
 		return false
 	} else {
 		setSuccessFor(password)
@@ -89,6 +86,8 @@ function checkInputs() {
 
 	if (confirmPasswordValue === '') {
 		setErrorFor(confirmPassword, 'password cannot be blank')
+		confirmPassword.focus()
+		confirmPassword.select()
 		return false
 	} else if (passwordValue !== confirmPasswordValue) {
 		setErrorFor(confirmPassword, 'password does not match')
@@ -120,6 +119,11 @@ function isPassword(password) {
 	return new RegExp('[0-9]').test(password);
 }
 
+
+async function loading() {
+	window.location.reload();
+
+}
 function fireRequest() {
 	let emp = {
 		username: username.value,
@@ -135,9 +139,18 @@ function fireRequest() {
 		body: JSON.stringify(emp)
 	})
 		.then((response) => response.json())
+		.then((data) => {
+			if (data === true) {
+				setErrorFor(username, 'username already exists')
+				username.focus()
+				username.select()
+
+			}
+
+		})
 
 }
 
 passwordShowUp()
 createEmployee()
-windows.location.reload()
+//loading()
