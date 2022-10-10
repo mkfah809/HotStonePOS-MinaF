@@ -1,5 +1,6 @@
 package com.coderscampus.HotStonePOS.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,17 +16,24 @@ import javax.persistence.OneToOne;
 
 @Entity(name = "customers")
 public class Customer {
+	
 	private Long custId;
-	private String custName;
-	private Long custPhone;
-	private Address custAddress;
-	private List<Order> orders;
-	@ManyToMany(fetch = FetchType.LAZY, 
-			cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-	@JoinTable(name = "cust_order", 
-			   joinColumns = @JoinColumn(name = "cust_id"), 
-			   inverseJoinColumns = 
-	@JoinColumn(name = "order_id"))
+	private String name;
+	private String phone;
+	private Address address;
+	private List<Order> orders = new ArrayList<>();
+	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	@JoinTable(name = "cust_order", joinColumns = @JoinColumn(name = "cust_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
 	public List<Order> getOrders() {
 		return orders;
 	}
@@ -34,39 +42,37 @@ public class Customer {
 		this.orders = orders;
 	}
 
+	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getCustId() {
 		return custId;
 	}
 
-	public void setCustId(Long custId) {
-		this.custId = custId;
+	public void setCustId(Long cust_Id) {
+		this.custId = cust_Id;
 	}
 
-	public String getCustName() {
-		return custName;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setCustName(String custName) {
-		this.custName = custName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Long getCustPhone() {
-		return custPhone;
-	}
 
-	public void setCustPhone(Long custPhone) {
-		this.custPhone = custPhone;
-	}
-	@OneToOne(mappedBy = "customer", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+
+	@OneToOne(mappedBy = "cust", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REMOVE }, orphanRemoval = true)
-	public Address getCustAddress() {
-		return custAddress;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setCustAddress(Address custAddress) {
-		this.custAddress = custAddress;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }

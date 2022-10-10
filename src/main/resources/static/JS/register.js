@@ -11,7 +11,6 @@ async function createEmployee() {
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
 		if (checkInputs()) {
-			alert('Submitting ...')
 			fireRequest()
 		}
 	})
@@ -125,11 +124,13 @@ async function loading() {
 
 }
 function fireRequest() {
+	
 	let emp = {
 		username: username.value,
 		title: title.value,
 		password: password.value
 	}
+	
 	fetch("/register/new/employee", {
 		method: 'POST',
 		headers: {
@@ -144,7 +145,7 @@ function fireRequest() {
 				setErrorFor(username, 'username already exists')
 				username.focus()
 				username.select()
-
+				
 			}
 
 		})
@@ -153,4 +154,3 @@ function fireRequest() {
 
 passwordShowUp()
 createEmployee()
-//loading()

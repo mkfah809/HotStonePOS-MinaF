@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http//thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+</head>
+<body>
+	<h1>Customer Information</h1>
+	<form id="form" th:action="@{/customer/information/}" method="POST">
+		<input type=hidden id="csrf" th:name="${_csrf.parameterName}"
+			th:value="${_csrf.token}" />
+<!-- 		<div class="form-control"> -->
+<!-- 			<input type="text" id="id" th:value="${customer.id}"> -->
+<!-- 		</div> -->
+		<div class="form-control">
+			<label><b>Phone Number: </b></label> <input type="text"
+				placeholder="Enter Phone Number" id="phone"
+				th:field="${customer.phone}">
+		</div>
+		<div class="form-control">
+			<label><b>Name: </b></label> <input type="text"
+				placeholder="Enter Name" id="name" th:field="${customer.name}">
+		</div>
+
+		<div>
+			addressLine1: <input type="text" id="addressLine1"
+				th:field="${customer.address.addressLine1}" />
+		</div>
+		<div>
+			addressLine2: <input type="text" id="addressLine2"
+				th:field="${customer.address.addressLine2}" />
+		</div>
+		<div>
+			City: <input type="text" id="city"
+				th:field="${customer.address.city}" />
+		</div>
+		<div>
+			Country: <input type="text" id="country"
+				th:field="${customer.address.country}" />
+		</div>
+		<div>
+			Region: <input type="text" id="region"
+				th:field="${customer.address.region}" />
+		</div>
+		<div>
+			ZipCode: <input type="text" id="zipCode"
+				th:field="${customer.address.zipCode}" />
+		</div>
+		<Button type="submit" value="Submit">Submit</Button>
+	</form>
+	<script type="text/javascript" src="/js/customer.js"></script>
+
+</body>
+</html>
