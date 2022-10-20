@@ -52,7 +52,7 @@ function fireRequest() {
 	})
 		.then((response) => response.json())
 		.then((data) => {
-			if (data === true) {
+			if (data === "/customer/information/{custId}") {
 				alert("user exists")
 
 			} else {

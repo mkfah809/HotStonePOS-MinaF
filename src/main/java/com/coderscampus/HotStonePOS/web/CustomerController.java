@@ -42,14 +42,14 @@ public class CustomerController {
 		return "redirect:/customer/information/"+foundByPhone.getCustId();
 	}
 
-//	@GetMapping("/customer/information/{custId}")
-//	public String getExistingCustomer(@PathVariable Long custId, ModelMap model) {
-//		Customer foundById = custService.findById(custId);
-//		System.out.println("XXXX " + foundById.getCustId());
-//		System.out.println("XXXX " + foundById.getName());
-//		System.out.println("XXXX " + foundById.getPhone());
-//		model.put("customer", foundById);
-//		return "customer";
-//	}
+	@GetMapping("/customer/information/{custId}")
+	public String getExistingCustomer(@PathVariable Long custId, ModelMap model) {
+		Customer foundById = custService.findById(custId);
+		System.out.println("XXXX " + foundById.getCustId());
+		System.out.println("XXXX " + foundById.getName());
+		System.out.println("XXXX " + foundById.getPhone());
+		model.put("customer", foundById);
+		return "customer";
+	}
 
 }
