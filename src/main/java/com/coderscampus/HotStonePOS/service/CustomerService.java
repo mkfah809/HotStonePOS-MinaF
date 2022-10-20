@@ -1,5 +1,7 @@
 package com.coderscampus.HotStonePOS.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,14 @@ public class CustomerService {
 	}
 
 	public Customer findById(Long id) {
-		return custRepo.findById(id).orElse(null);
+	      Optional<Customer> optional = custRepo.findById(id);
+	        Customer cust = null;
+	        if (optional.isPresent())
+	            cust = optional.get();
+	        else
+	            throw new RuntimeException(
+	                "cust not found for id : " + id);
+		return cust;
 
 	}
 

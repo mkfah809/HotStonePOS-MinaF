@@ -10,49 +10,73 @@
 </head>
 <body>
 	<h1>Customer Information</h1>
-	<form id="form" th:action="@{/customer/information/}" method="POST">
-		<input type=hidden id="csrf" th:name="${_csrf.parameterName}"
-			th:value="${_csrf.token}" />
-<!-- 		<div class="form-control"> -->
-<!-- 			<input type="text" id="id" th:value="${customer.id}"> -->
-<!-- 		</div> -->
-		<div class="form-control">
-			<label><b>Phone Number: </b></label> <input type="text"
-				placeholder="Enter Phone Number" id="phone"
-				th:field="${customer.phone}">
-		</div>
-		<div class="form-control">
-			<label><b>Name: </b></label> <input type="text"
-				placeholder="Enter Name" id="name" th:field="${customer.name}">
-		</div>
+<!-- {custId}(custId=${customer.custId}) -->
+	<div>
+		<form class="form" id="form"
+			action="/customer/information/{custId}(custId=${customer.custId})"
+			method="POST">
 
-		<div>
-			addressLine1: <input type="text" id="addressLine1"
-				th:field="${customer.address.addressLine1}" />
-		</div>
-		<div>
-			addressLine2: <input type="text" id="addressLine2"
-				th:field="${customer.address.addressLine2}" />
-		</div>
-		<div>
-			City: <input type="text" id="city"
-				th:field="${customer.address.city}" />
-		</div>
-		<div>
-			Country: <input type="text" id="country"
-				th:field="${customer.address.country}" />
-		</div>
-		<div>
-			Region: <input type="text" id="region"
-				th:field="${customer.address.region}" />
-		</div>
-		<div>
-			ZipCode: <input type="text" id="zipCode"
-				th:field="${customer.address.zipCode}" />
-		</div>
-		<Button type="submit" value="Submit">Submit</Button>
-	</form>
-	<script type="text/javascript" src="/js/customer.js"></script>
+
+			<input type="hidden" id="csrf" th:name="${_csrf.parameterName}"
+				th:value="${_csrf.token}" />
+
+
+
+
+			<div class="input-group">
+				<input type="search" id="phone" 
+					placeholder="Enter Phone Number" aria-label="Search"
+					aria-describedby="search-addon" />
+			</div>
+
+			<hr>
+			<br>
+
+			<div class="input-group">
+				<label>ID: </label> <input class="rounded" type="text" id="id"
+					th:field="${customer.custId}">
+			</div>
+
+			<div class="input-group">
+				<label>Name: </label> <input class="rounded" type="text" id="name"
+					th:field="${customer.name}">
+			</div>
+			<div class="input-group">
+				<label>Phone# : </label> <input class="rounded" type="text" id="name"
+					th:field="${customer.phone}">
+			</div>
+
+			<div class="input-group">
+				addressLine1: <input class="rounded" type="text" id="addressLine1"
+					th:field="${customer.address.addressLine1}" />
+			</div>
+			<div class="input-group">
+				addressLine2: <input class="rounded" type="text" id="addressLine2"
+					th:field="${customer.address.addressLine2}" />
+			</div>
+			<div class="input-group">
+				City: <input class="rounded" type="text" id="city"
+					th:field="${customer.address.city}" />
+			</div>
+			<div class="input-group">
+				Country: <input type="text" id="country"
+					th:field="${customer.address.country}" />
+			</div>
+			<div class="input-group">
+				Region: <input class="rounded" type="text" id="region"
+					th:field="${customer.address.region}" />
+			</div>
+			<div class="input-group">
+				ZipCode: <input class="rounded" type="text" id="zipCode"
+					th:field="${customer.address.zipCode}" />
+			</div>
+			<button value="submit" type="submit">
+				<i class="fas fa-search">Submit</i>
+			</button>
+		</form>
+	</div>
+
+		<script type="text/javascript" src="/js/customer.js"></script>
 
 </body>
 </html>
