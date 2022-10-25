@@ -7,11 +7,14 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 	crossorigin="anonymous">
+
 </head>
 <body>
 	<h1>Customer Existing Information</h1>
 
-	<form class="form" id="form" th:action="@{/customer/information/{custId}(custId=${customer.custId})}" method="POST">
+	<form class="form" id="form"
+		th:action="@{/customer/information/{custId}(custId=${customer.custId})}"
+		method="POST">
 		<input type="hidden" id="csrf" th:name="${_csrf.parameterName}"
 			th:value="${_csrf.token}" />
 		<hr>
@@ -26,8 +29,8 @@
 				th:field="${customer.name}">
 		</div>
 		<div class="input-group">
-			<label>Phone# : </label> <input class="rounded" type="text" id="phone"
-				th:field="${customer.phone}">
+			<label>Phone# : </label> <input class="rounded" type="text"
+				id="phone" th:field="${customer.phone}">
 		</div>
 
 		<div class="input-group">
@@ -55,10 +58,13 @@
 				th:field="${customer.address.zipCode}" />
 		</div>
 		<button value="submit" type="submit">
-			<i class="fas fa-search">Submit</i>
+			<i class="fas fa-search">Update</i>
 		</button>
+
 	</form>
-					<script type="text/javascript" src="/js/customer.js"></script>
-	
+
+	<a th:href="@{/order/here/{custId}(custId=${customer.custId})}">
+		<Button>Next</Button>
+	</a>
 </body>
 </html>

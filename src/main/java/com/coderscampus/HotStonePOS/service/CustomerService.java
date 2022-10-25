@@ -35,7 +35,6 @@ public class CustomerService {
 	}
 
 	public Customer save(Customer cust) {
-
 		return custRepo.save(cust);
 	}
 

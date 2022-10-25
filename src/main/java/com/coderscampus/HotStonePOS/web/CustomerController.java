@@ -3,12 +3,10 @@ package com.coderscampus.HotStonePOS.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.coderscampus.HotStonePOS.domain.Address;
 import com.coderscampus.HotStonePOS.domain.Customer;
@@ -29,10 +27,12 @@ public class CustomerController {
 	@PostMapping("/customer/information/new")
 	public String postCustomer(Customer cust) throws Exception {
 		Customer foundByPhone = custService.findByPhone(cust.getPhone());
-		
-		if (foundByPhone == null) {
+
+		if (foundByPhone != null) {
+		} else {
 			custService.save(cust);
-			return "redirect:/customer/information/new";
+			return "redirect:/customer/information/" + custService.findByPhone(cust.getPhone()).getCustId();
+
 		}
 
 		return "redirect:/customer/information/" + foundByPhone.getCustId();
@@ -40,18 +40,20 @@ public class CustomerController {
 
 	@GetMapping("/customer/information/{custId}")
 	String getExistingCustomer(@PathVariable Long custId, ModelMap model) {
-		Customer findById = custService.findById(custId);
-		model.put("customer", findById);
+		if (custId != null) {
+			Customer findById = custService.findById(custId);
+			model.put("customer", findById);
+		}
 		return "customer";
 	}
 
 	@PostMapping("/customer/information/{custId}")
-	String updateExistingCustomer(@RequestBody Customer cust, ModelMap model) {
-		Customer foundByPhone = custService.findByPhone(cust.getPhone());
-		custService.save(foundByPhone);
-		custService.setAddressToCustomer(foundByPhone, new Address());
+	String updateExistingCustomer(Customer cust, ModelMap model) {
+		System.out.println("Updating Customer# " + cust.getCustId());
+		custService.setAddressToCustomer(cust, new Address());
+		custService.save(cust);
 
-		return "redirect:/customer/information/" + foundByPhone.getCustId();
+		return "redirect:/customer/information/" + cust.getCustId();
 	}
 
 }

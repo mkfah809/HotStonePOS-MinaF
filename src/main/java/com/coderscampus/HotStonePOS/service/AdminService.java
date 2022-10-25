@@ -33,7 +33,6 @@ public class AdminService {
 	}
 
 	public Employee findByUsername(String username) {
-		
 		return empRepo.findByUsername(username);
 
 	}
