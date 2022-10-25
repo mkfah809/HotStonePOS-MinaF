@@ -14,8 +14,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
+import org.springframework.lang.NonNull;
+
+import net.bytebuddy.utility.nullability.NeverNull;
+
 @Entity(name = "customers")
 public class Customer {
+	
 	
 	private Long custId;
 	private String name;
@@ -23,6 +28,7 @@ public class Customer {
 	private Address address;
 	private List<Order> orders = new ArrayList<>();
 	
+
 	public String getPhone() {
 		return phone;
 	}

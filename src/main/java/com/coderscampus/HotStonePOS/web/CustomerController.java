@@ -3,11 +3,12 @@ package com.coderscampus.HotStonePOS.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.coderscampus.HotStonePOS.domain.Address;
 import com.coderscampus.HotStonePOS.domain.Customer;
@@ -19,37 +20,38 @@ public class CustomerController {
 	@Autowired
 	CustomerService custService;
 
-	@GetMapping("/customer/information/")
-	public String getCustomer(ModelMap model ) {
+	@GetMapping("/customer/information/new")
+	public String getCustomer(ModelMap model) {
 		model.put("customer", new Customer());
-		return "customer";
+		return "searchCustomer";
 	}
 
-	@PostMapping("/customer/information/")
-//	@ResponseBody
-	public String postCustomer(@RequestBody Customer cust, ModelMap model) {
+	@PostMapping("/customer/information/new")
+	public String postCustomer(Customer cust) throws Exception {
 		Customer foundByPhone = custService.findByPhone(cust.getPhone());
+		
 		if (foundByPhone == null) {
 			custService.save(cust);
-			return "/customer/information/";
+			return "redirect:/customer/information/new";
 		}
-		
-		System.out.println("XXXX " + foundByPhone.getCustId());
-		System.out.println("XXXX " + foundByPhone.getName());
-		System.out.println("XXXX " + foundByPhone.getPhone());
 
-		model.put("customer",foundByPhone);
-		return "redirect:/customer/information/"+foundByPhone.getCustId();
+		return "redirect:/customer/information/" + foundByPhone.getCustId();
 	}
 
 	@GetMapping("/customer/information/{custId}")
-	public String getExistingCustomer(@PathVariable Long custId, ModelMap model) {
-		Customer foundById = custService.findById(custId);
-		System.out.println("XXXX " + foundById.getCustId());
-		System.out.println("XXXX " + foundById.getName());
-		System.out.println("XXXX " + foundById.getPhone());
-		model.put("customer", foundById);
+	String getExistingCustomer(@PathVariable Long custId, ModelMap model) {
+		Customer findById = custService.findById(custId);
+		model.put("customer", findById);
 		return "customer";
+	}
+
+	@PostMapping("/customer/information/{custId}")
+	String updateExistingCustomer(@RequestBody Customer cust, ModelMap model) {
+		Customer foundByPhone = custService.findByPhone(cust.getPhone());
+		custService.save(foundByPhone);
+		custService.setAddressToCustomer(foundByPhone, new Address());
+
+		return "redirect:/customer/information/" + foundByPhone.getCustId();
 	}
 
 }

@@ -1,3 +1,4 @@
+
 var form = document.getElementById('form');
 var id = document.getElementById('id')
 var phoneField = document.getElementById('phone')
@@ -10,7 +11,7 @@ var countryField = document.getElementById('country')
 var regionField = document.getElementById('region')
 var zipCodeField = document.getElementById('zipCode')
 
-var customer
+
 
 async function createEmployee() {
 	form.addEventListener('submit', (e) => {
@@ -19,8 +20,7 @@ async function createEmployee() {
 
 		fireRequest();
 
-
-
+		console.log("DONE")
 	})
 }
 
@@ -28,7 +28,8 @@ async function createEmployee() {
 
 function fireRequest() {
 
-	customer = {
+
+	let customer = {
 		id: id.value,
 		name: nameField.value,
 		phone: phoneField.value,
@@ -42,7 +43,7 @@ function fireRequest() {
 		}
 	}
 
-	fetch("/customer/information/", {
+	fetch("/customer/information/{custId}", {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
@@ -51,17 +52,9 @@ function fireRequest() {
 		body: JSON.stringify(customer)
 	})
 		.then((response) => response.json())
-		.then((data) => {
-			if (data === "/customer/information/{custId}") {
-				alert("user exists")
 
-			} else {
-				alert("a new customer")
-			}
-		})
 
 }
 
 
 createEmployee()
-//hideElements()

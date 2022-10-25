@@ -24,21 +24,19 @@ public class CustomerService {
 	}
 
 	public Customer findById(Long id) {
-	      Optional<Customer> optional = custRepo.findById(id);
-	        Customer cust = null;
-	        if (optional.isPresent())
-	            cust = optional.get();
-	        else
-	            throw new RuntimeException(
-	                "cust not found for id : " + id);
+		Optional<Customer> optional = custRepo.findById(id);
+		Customer cust = null;
+		if (optional.isPresent())
+			cust = optional.get();
+		else
+			throw new RuntimeException("cust not found for id : " + id);
 		return cust;
 
 	}
 
-	public void save(Customer cust) {	
-		if(cust != null) {
-			setAddressToCustomer(cust, new Address());
-		}
+	public Customer save(Customer cust) {
+
+		return custRepo.save(cust);
 	}
 
 	public Address setAddressToCustomer(Customer cust, Address address) {
