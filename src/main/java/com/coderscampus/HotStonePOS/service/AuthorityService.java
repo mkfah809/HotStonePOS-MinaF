@@ -11,16 +11,14 @@ import com.coderscampus.HotStonePOS.repository.AuthorityRepository;
 public class AuthorityService {
 
 	@Autowired
-	private AuthorityRepository authRepo;
-	
-	
+	AuthorityRepository authRepo;
+
 	public Authority setAuthorityToUser(Employee emp, Authority auth) {
-		
+
 		if (emp.getTitle().equalsIgnoreCase("Manager")) {
 			auth.setAuthority("ROLE_ADMIN");
 		} else {
 			auth.setAuthority("ROLE_USER");
-
 		}
 		auth.setEmp(emp);
 		return authRepo.save(auth);

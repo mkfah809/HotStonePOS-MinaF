@@ -6,6 +6,11 @@
 
 </head>
 <body>
-	<h1>order here!</h1>	
+	<h1>order here!</h1>
+	<form method="post" th:action="@{/order/here/{custId}(custId=${customer.custId})}">
+		<label>order ID:</label><input class="rounded" type="text" id="city"
+			th:field="${order.orderId}" />
+			<Button>Save</Button>
+	</form>
 </body>
 </html>

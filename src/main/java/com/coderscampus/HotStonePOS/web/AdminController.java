@@ -1,6 +1,5 @@
 package com.coderscampus.HotStonePOS.web;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,7 +36,6 @@ public class AdminController {
 			adminService.createOrUpdateEmployee(emp);
 			authService.setAuthorityToUser(emp, auth);
 			return (emp == null);
-
 		}
 		return (emp != null);
 	}
@@ -60,8 +58,7 @@ public class AdminController {
 	public String updateExistingEmployee(Employee emp, Authority auth) {
 		System.out.println("Updating user# " + emp.getId());
 		adminService.createOrUpdateEmployee(emp);
-		authService.setAuthorityToUser(emp, auth);
-		return "redirect:/dashboard/about-me/" + emp.getId();
+		return "redirect:/dashboard";
 	}
 
 	@GetMapping("/dashoard/employees")
@@ -75,6 +72,6 @@ public class AdminController {
 	public String deleteExistingEmployee(@PathVariable Long empId) {
 		System.out.println("Deleting user# " + empId);
 		adminService.delete(empId);
-		return "redirect:/dashoard/employees";
+		return "redirect:/dashboard";
 	}
 }
