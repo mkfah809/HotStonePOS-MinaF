@@ -21,8 +21,7 @@ public class Order {
 	private Boolean orderStatus;
 	private List<Employee> employees;
 	private List<Customer> customers;
-	
-	
+
 	@ManyToMany(mappedBy = "orders", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	public List<Customer> getCustomers() {
 		return customers;
@@ -74,7 +73,8 @@ public class Order {
 		this.orderStatus = orderStatus;
 	}
 
-	@ManyToMany(mappedBy = "orders", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	@ManyToMany(mappedBy = "orders", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	public List<Employee> getEmployee() {
 		return employees;
 	}

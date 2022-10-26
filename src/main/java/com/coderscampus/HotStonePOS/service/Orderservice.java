@@ -21,10 +21,7 @@ public class Orderservice {
 	}
 
 	public void setEmployeeToOrder(Order order, Employee emp) {
-		order.getEmployee().add(emp);
-		emp.getOrders().add(order);		
-//		employees.add(emp);
-//		orders.add(order);		
+
 	}
 
 	public void setCustomerToOrder(Order order, Customer cust) {
@@ -32,7 +29,7 @@ public class Orderservice {
 	}
 
 	public Order save(Order order) {
-		
+
 		return orderRepo.save(order);
 
 	}

@@ -16,8 +16,12 @@ public class AdminService {
 
 	public Employee createOrUpdateEmployee(Employee emp) {
 		emp.setPassword(new BCryptPasswordEncoder().encode(emp.getPassword()));
+		if(emp.getId() != null) {
+			System.out.println("emp exist");
+		} else {
+			System.out.println("emp doesnt exist");
+		}
 		return empRepo.save(emp);
-
 	}
 
 	public Employee findById(Long id) {

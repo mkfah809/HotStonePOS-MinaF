@@ -36,8 +36,7 @@ public class orderController {
 	@PostMapping("/order/here/{custId}")
 	public String postNewOrder(Order order, @AuthenticationPrincipal Employee emp) {
 		Order orderSaved = orderService.save(order);
-
-//		orderService.setEmployeeToOrder(order, emp);
+		orderService.setEmployeeToOrder(order, emp);
 //		orderService.setCustomerToOrder(orderSaved, custService.findById(custId));
 		return "redirect:/order/here/{custId}/for/" + orderSaved.getOrderId();
 	}
