@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class LoginController {
 
+
 	@RequestMapping("/")
 	public String getRedirectWelcomePage() {
-		return ("redirect://localhost:8080/login");
+		return "redirect:/login";
 	}
-
+	
+	
 	@GetMapping("/login")
 	public String login() {
 		return "login";

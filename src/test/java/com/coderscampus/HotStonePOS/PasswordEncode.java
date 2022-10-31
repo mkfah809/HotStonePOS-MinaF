@@ -8,7 +8,7 @@ public class PasswordEncode {
 	@Test
 	public void should_password_encrypt() {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String encode = passwordEncoder.encode("0000");
+		String encode = passwordEncoder.encode("00");
 		System.out.println(encode);
 	}
 }

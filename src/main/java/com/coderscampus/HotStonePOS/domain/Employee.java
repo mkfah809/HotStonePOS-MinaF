@@ -12,9 +12,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,16 +32,16 @@ public class Employee {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long empId) {
+		this.id = empId;
 	}
 
 	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setTitle(String empTitle) {
+		this.title = empTitle;
 	}
 
 	@Column(unique = true)
@@ -52,20 +49,19 @@ public class Employee {
 		return username;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(String empUsername) {
+		this.username = empUsername;
 	}
 
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String empPassword) {
+		this.password = empPassword;
 	}
- 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-	@JoinTable(name = "emp_order", joinColumns = @JoinColumn(name = "emp_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
+
+	@OneToMany(mappedBy = "emp")
 	public List<Order> getOrders() {
 		return orders;
 	}
@@ -83,26 +79,5 @@ public class Employee {
 	public void setAuthorities(Set<Authority> authorities) {
 		this.authorities = authorities;
 	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(authorities, id, orders, password, title, username);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Employee other = (Employee) obj;
-		return Objects.equals(authorities, other.authorities) && Objects.equals(id, other.id)
-				&& Objects.equals(orders, other.orders) && Objects.equals(password, other.password)
-				&& Objects.equals(title, other.title) && Objects.equals(username, other.username);
-	}
-	
-	
 
 }

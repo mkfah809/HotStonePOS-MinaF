@@ -15,9 +15,9 @@ public class DashboardController {
 
 	@GetMapping("/dashboard")
 	public String getDashboard(@AuthenticationPrincipal Employee emp, ModelMap model) throws Exception {
-		Employee findById = adminService.findById(emp.getId());
+		Employee foundById = adminService.findById(emp.getId());
 		try {
-			model.put("employee", findById);
+			model.put("employee", foundById);
 			model.put("access", emp.getAuthorities().iterator().next());
 
 		} catch (Exception e) {

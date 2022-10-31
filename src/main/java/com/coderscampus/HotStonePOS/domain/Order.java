@@ -4,22 +4,43 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity(name = "orders")
+@Table(name = "orders")
+@Entity
 public class Order {
-	private Long orderId;
-	private String orderType;
-	private String orderDiscount;
-	private String orderComment;
-	private Boolean orderStatus;
-	private List<Employee> employees;
+	private Long id;
+	private String type;
+	private String discount;
+	private String comment;
+	private Boolean isPaid;
+	private Employee emp;
+	
+	
+	public Boolean getIsPaid() {
+		return isPaid;
+	}
+
+	public void setIsPaid(Boolean isPaid) {
+		this.isPaid = isPaid;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="emp_id")
+	public Employee getEmp() {
+		return emp;
+	}
+
+	public void setEmp(Employee emp) {
+		this.emp = emp;
+	}
+
 	private List<Customer> customers;
 
 	@ManyToMany(mappedBy = "orders", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
@@ -33,54 +54,38 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long getOrderId() {
-		return orderId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setOrderId(Long orderId) {
-		this.orderId = orderId;
+	public void setId(Long orderId) {
+		this.id = orderId;
 	}
 
-	public String getOrderType() {
-		return orderType;
+	public String getType() {
+		return type;
 	}
 
-	public void setOrderType(String orderType) {
-		this.orderType = orderType;
+	public void setType(String orderType) {
+		this.type = orderType;
 	}
 
-	public String getOrderDiscount() {
-		return orderDiscount;
+	public String getDiscount() {
+		return discount;
 	}
 
-	public void setOrderDiscount(String orderDiscount) {
-		this.orderDiscount = orderDiscount;
+	public void setDiscount(String orderDiscount) {
+		this.discount = orderDiscount;
 	}
 
-	public String getOrderComment() {
-		return orderComment;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setOrderComment(String orderComment) {
-		this.orderComment = orderComment;
+	public void setComment(String orderComment) {
+		this.comment = orderComment;
 	}
 
-	public Boolean getOrderStatus() {
-		return orderStatus;
-	}
 
-	public void setOrderStatus(Boolean orderStatus) {
-		this.orderStatus = orderStatus;
-	}
-
-	@ManyToMany(mappedBy = "orders", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-			CascadeType.REMOVE }, fetch = FetchType.LAZY)
-	public List<Employee> getEmployee() {
-		return employees;
-	}
-
-	public void setEmployee(List<Employee> employee) {
-		this.employees = employee;
-	}
 
 }
