@@ -36,13 +36,15 @@
 						<button class="btn btn-primary" type="submit">Logout</button>
 					</form>
 				</li>
-				<li th:if="${access.authority} == 'ROLE_ADMIN'" class="nav-item"><a
-					class="btn btn-secondary" th:href="@{/register/new/employee}">Register</a></li>
+				<li th:if="${access.authority} == 'ROLE_ADMIN'" class="nav-item">
+				<a class="btn btn-secondary" th:href="@{/register/new/employee}">Register</a></li>
 				<li th:if="${access.authority} == 'ROLE_ADMIN'" class="nav-item"><a
 					class="btn btn-primary" th:href="@{/dashoard/employees}">List
 						Employees</a></li>
 				<li><a class="btn btn-secondary"
 					th:href="@{/dashboard/about-me/{empId}(empId=${employee.id})}">Update</a></li>
+				<li th:if="${access.authority} == 'ROLE_ADMIN'" class="nav-item"><a
+					class="btn btn-primary" th:href="@{/dashboard/toppings}">Add Toppings</a></li>	
 			</ul>
 		</div>
 

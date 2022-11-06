@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.coderscampus.HotStonePOS.domain.Authority;
 import com.coderscampus.HotStonePOS.domain.Employee;
+import com.coderscampus.HotStonePOS.domain.Topping;
 import com.coderscampus.HotStonePOS.service.AdminService;
 import com.coderscampus.HotStonePOS.service.AuthorityService;
+import com.coderscampus.HotStonePOS.service.ToppingService;
 
 @Controller
 public class AdminController {
@@ -22,6 +24,9 @@ public class AdminController {
 
 	@Autowired
 	AuthorityService authService;
+
+	@Autowired
+	ToppingService toppingService;
 
 	@GetMapping("/register/new/employee")
 	public String getCreateEmployee(ModelMap model) {
@@ -72,6 +77,18 @@ public class AdminController {
 	public String deleteExistingEmployee(@PathVariable Long empId) {
 		System.out.println("Deleting user# " + empId);
 		adminService.delete(empId);
+		return "redirect:/dashboard";
+	}
+
+	@GetMapping("/dashboard/toppings")
+	public String getToppingPage(Topping topping, ModelMap model) {
+		model.put("topping", new Topping());
+		return "addToppings";
+	}
+
+	@PostMapping("/dashboard/toppings")
+	public String postTopping(Topping topping) {
+		toppingService.save(topping);
 		return "redirect:/dashboard";
 	}
 }

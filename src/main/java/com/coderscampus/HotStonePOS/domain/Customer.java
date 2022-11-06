@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import org.springframework.lang.NonNull;
@@ -20,14 +21,12 @@ import net.bytebuddy.utility.nullability.NeverNull;
 
 @Entity(name = "customers")
 public class Customer {
-	
-	
+
 	private Long custId;
 	private String name;
 	private String phone;
 	private Address address;
 	private List<Order> orders = new ArrayList<>();
-	
 
 	public String getPhone() {
 		return phone;
@@ -37,9 +36,7 @@ public class Customer {
 		this.phone = phone;
 	}
 
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-	@JoinTable(name = "cust_order", joinColumns = @JoinColumn(name = "cust_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
+	@OneToMany(mappedBy = "cust")
 	public List<Order> getOrders() {
 		return orders;
 	}
@@ -47,8 +44,6 @@ public class Customer {
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
-
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,7 +55,6 @@ public class Customer {
 		this.custId = cust_Id;
 	}
 
-
 	public String getName() {
 		return name;
 	}
@@ -68,8 +62,6 @@ public class Customer {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-
 
 	@OneToOne(mappedBy = "cust", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REMOVE }, orphanRemoval = true)
