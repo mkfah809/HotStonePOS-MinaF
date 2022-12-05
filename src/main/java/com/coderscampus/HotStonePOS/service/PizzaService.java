@@ -55,10 +55,10 @@ public class PizzaService {
 		return pizzaRepo.saveAll(pizzas);
 	}
 
-	public Double setPriceToItem(Double price, List<Pizza> findAllByOrder, List<Double> priceForAllItems) {
+	public Double setPriceToItem(Double price, List<Pizza> findAllByOrder, List<Double> finalPrice) {
 		for (Pizza pizza : findAllByOrder) {
 			price = pizza.getPrice();
-			priceForAllItems.add(price);
+			finalPrice.add(price);
 		}
 		return price;
 	}

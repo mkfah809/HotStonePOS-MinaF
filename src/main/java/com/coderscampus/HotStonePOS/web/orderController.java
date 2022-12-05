@@ -39,6 +39,7 @@ public class orderController {
 		if (custId != null) {
 			model.put("pizza", new Pizza());
 			model.put("order", new Order());
+			model.put("topping", new Topping());
 			model.put("customer", custService.findById(custId));
 			model.put("employee", emp);
 		}
@@ -47,7 +48,7 @@ public class orderController {
 
 	@PostMapping("/order/here/{custId}")
 	public String postNewOrder(ArrayList<Order> orders, Order order, @AuthenticationPrincipal Employee emp,
-			Customer cust, Pizza pizza, ArrayList<Pizza> pizzas) {
+			Customer cust) {
 
 		Order savedOrder = orderService.save(order, emp, cust, orders);
 
@@ -67,14 +68,15 @@ public class orderController {
 			List<Pizza> findAllByOrder = pizzaService.findAllByOrder(orderId);
 			if (!findAllByOrder.isEmpty()) {
 				model.put("pizzas", findAllByOrder);
-				List<Double> priceForAllItems = new ArrayList<>();
+				List<Double> finalPrice = new ArrayList<>();
+
 //				setPriceToItem 
-				model.put("price", pizzaService.setPriceToItem(price, findAllByOrder, priceForAllItems));
+				model.put("price", pizzaService.setPriceToItem(price, findAllByOrder, finalPrice));
 
 				model.put("toppings", toppingService.findAllToppings());
 
 //				setFinalPriceToOrder
-				model.put("finalPrice", orderService.setFinalPriceToOrder(price, priceForAllItems, foundOrder));
+				model.put("finalPrice", orderService.setFinalPriceToOrder(price, finalPrice, foundOrder));
 			}
 
 		}
@@ -104,8 +106,36 @@ public class orderController {
 		return "redirect:/addItem/To/order/{orderId}/{custId}/" + savedPizza.getPizzaId();
 	}
 
+	@GetMapping("/addItem/To/order/{orderId}/{custId}/{pizzaId}")
+	public String getPizza(@PathVariable Long orderId, @PathVariable Long custId, @PathVariable Long pizzaId) {
+		Pizza foundPizza = pizzaService.findById(pizzaId);
+		Order foundOrder = orderService.findById(orderId);
+		Customer foundCustomer = custService.findById(custId);
+		return "redirect:/addItem/To/order/{orderId}/{custId}";
+	}
+
+	@PostMapping("/addItem/To/order/{orderId}/{custId}/{pizzaId}")
+	public String postTopping(@RequestBody Order order) {
+		Order foundOrder = orderService.findById(order.getOrderId());
+		Pizza pizza2 = foundOrder.getPizzas().get(0);
+//		List<Pizza> findAllByOrder = pizzaService.findAllByOrder(foundOrder.getOrderId());
+//		for (Pizza pizza : findAllByOrder) {
+//			System.out.println(pizza.getPizzaId());
+//		}
+//		Topping foundTopping = toppingService.findById(topping.getId());
+
+		return "redirect:/addItem/To/order/{orderId}/{custId}/{pizzaId}";
+	}
+
+	@PostMapping("/addItem/To/order/{orderId}/{custId}/{pizzaId}/topping")
+	public String getTopping(@RequestBody Topping topping) {
+		Topping foundTopping = toppingService.findById(topping.getId());
+
+		return "redirect:/addItem/To/order/{orderId}/{custId}/{pizzaId}";
+	}
+
 	@PostMapping("/deleteItem/from/order/{pizzaId}/{orderId}/{custId}")
-	public String postDeleteItemsFromExistingOrder(@PathVariable Long pizzaId, @PathVariable Long orderId,
+	public String deleteItemsFromOrder(@PathVariable Long pizzaId, @PathVariable Long orderId,
 			@PathVariable Long custId, ModelMap model) {
 
 		List<Pizza> pizzas = orderService.findById(orderId).getPizzas();
@@ -116,25 +146,4 @@ public class orderController {
 		return "redirect:/addItem/To/order/{orderId}/{custId}";
 	}
 
-	@GetMapping("/addItem/To/order/{orderId}/{custId}/{pizzaId}")
-	public String getTopping(@PathVariable Long orderId, @PathVariable Long custId, @PathVariable Long pizzaId) {
-		System.out.println("find topping method controller");
-		Pizza pizza = pizzaService.findById(pizzaId);
-		Order order = orderService.findById(orderId);
-		List<Pizza> pizzas = order.getPizzas();
-		return "redirect:/addItem/To/order/{orderId}/{custId}";
-
-	}
-
-	@PostMapping("/addItem/To/order/{orderId}/{custId}/{pizzaId}")
-	
-	public String findToppingToGetPrice(@RequestBody Topping topping, @PathVariable Long pizzaId) {
-		System.out.println("find topping method controller");
-		Topping foundTopping = toppingService.findByName(topping.getName());
-//		Pizza pizza = pizzaService.findById(pizzaId);
-//		Order order = orderService.findById(orderId);
-//		List<Pizza> pizzas = order.getPizzas();
-
-		return "redirect:/addItem/To/order/{orderId}/{custId}/{pizzaId}";
-	}
 }

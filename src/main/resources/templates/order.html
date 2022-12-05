@@ -79,7 +79,7 @@
 						<td><input class="form_control" th:field=${pizza.comment}></td>
 						<td>
 							<div class="action_container">
-								<button class="success">
+								<button id="pizzaAdded" class="success">
 									addItem <i class="fa-solid fa-plus"></i>
 								</button>
 							</div>
@@ -110,18 +110,24 @@
 				<tr>
 					<td>x[[${pizza.qty}]]</td>
 					<td><div th:each="topping : ${toppings}">
-							<input name="settings" id="toppingName" type="checkbox"
-								th:text="${topping.name}" th:value="${topping.name}">
+
+<!-- 							<form method="post" -->
+<!-- 								th:action="@{/addItem/To/order/{orderId}/{custId}/{pizzaId}(orderId=${order.orderId},custId =${customer.custId},pizzaId=${pizza.pizzaId})}"> -->
+								<input name="settings" id="toppingName" type="checkbox"
+									th:text="${topping.name}" th:value="${topping.id}">
+<!-- 							</form> -->
+
+
 						</div></td>
 					<td>[[${pizza.size}]]</td>
 					<td>[[${pizza.HowCooked}]]</td>
 					<td>[[${pizza.comment}]]</td>
 					<td>[[${pizza.price}]]</td>
 					<td><div class="action_container">
-							<button class="danger">
-								RemoveItem
-							</button>
+							<button class="danger">RemoveItem</button>
 						</div></td>
+					<td id="pizzaId">[[${pizza.pizzaId}]]</td>
+
 				</tr>
 	</table>
 	</form>
@@ -130,7 +136,7 @@
 	</div>
 	Final Price:
 	<span>[[${finalPrice}]]</span>
-
+	<div id="orderId">[[${order.orderId}]]</div>
 
 	<script type="text/javascript" src="/js/order.js"></script>
 </body>

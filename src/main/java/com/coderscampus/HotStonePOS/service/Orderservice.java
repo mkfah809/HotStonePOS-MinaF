@@ -41,8 +41,9 @@ public class Orderservice {
 		if (order.getOrderId() == null) {
 			setEmployeeToOrder(order, emp, orders);
 			setCustomerToOrder(order, cust, orders);
-		}else {
-			order.setStatus("OPEN"); //status
+			order.setStatus("OPEN"); // status
+		} else {
+			
 		}
 		return orderRepo.save(order);
 	}
